@@ -1,6 +1,7 @@
 package com.gmail.melvinmalongamatouba.myapplication.ui.theme
 
 import Logic
+import android.icu.text.CaseMap.Title
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -51,16 +52,7 @@ fun Calculatrice(modifier: Modifier = Modifier) {
     }
 }
 
-@Composable
-fun ExpressionPrecedente(modifier: Modifier = Modifier) {
-Row() {
-    Text("Calcul précédent")
-    ExpressionBox(
-        text = Logic.expressionPrecedente.value,
-        modifier = modifier
-    )
-}
-}
+
 
 @Composable
 fun Boutons(modifier: Modifier = Modifier) {
@@ -138,6 +130,17 @@ fun BoutonEgal() {
 }
 
 @Composable
+fun ExpressionPrecedente(modifier: Modifier = Modifier) {
+    Row(modifier) {
+        Text("Calcul précédent")
+        ExpressionBox(
+            text = Logic.expressionPrecedente.value,
+            modifier = modifier
+        )
+    }
+}
+
+@Composable
 fun CalculEnCours(expression: MutableState<String> = Logic.entree, modifier: Modifier = Modifier) {
     Row(modifier){
         Text("Calcul en cours: ")
@@ -156,7 +159,7 @@ fun ResultatBox(resultat: MutableState<Double> = Logic.resultat, modifier: Modif
 @Composable
 fun ExpressionBox(text: String, modifier: Modifier = Modifier) {
     Box(
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
         contentAlignment = Alignment.CenterEnd // texte aligné à droite
     ) {
         Text(

@@ -20,7 +20,6 @@ fun main() {
             }
         }
 
-        println(Logic.parseExpression("3 + 1"))
 
         var calcMarcheDepuisString : Boolean = true
         var temp = ((1.0 + 34.0 * 5.0 - 23.0 + 34.0).toDouble() == Logic.calculerResultat("1 + 34 * 5 - 23 + 34"))
@@ -31,6 +30,13 @@ fun main() {
         temp = ((64.0 - 123.0 + 243.0 / 35.0).toDouble() == Logic.calculerResultat("64 - 123 + 243 / 35"))
         verify("calculer Expression à partir d'un string semble bon"){temp}
         calcMarcheDepuisString =  temp|| calcMarcheDepuisString
+
+
+        verify ("calculer expression à partir d'un string avec des parenthèses est bon"){
+            Logic.calculerResultat(" ( 64 - 123 )  +  (  ( 243 / 35 )  * 17 - 23 + 12 ) ") == ((64.0 - 123.0) + ((243.0 / 35.0) *17.0-23.0+12.0) ).toDouble()
+        }
+
+        //Cas de 2 signes de parenthèses de suite encore problématique
 
         temp =Logic.parseExpression("3 + 1") == Noeud(Operation.ADDITION, Feuille(3.0),Feuille(1.0))
         verify("parse 1 lvl + works") {temp}
@@ -52,6 +58,7 @@ fun main() {
         verify("parse 2 lvls +* works") {Logic.parseExpression("3 + 1 * 2") == Noeud(Operation.ADDITION, Feuille(3.0),Noeud(Operation.MULTIPLICATION, Feuille(1.0),Feuille(2.0)))}
         verify("parse 2 lvls +/ works") {Logic.parseExpression("3 + 1 / 2") == Noeud(Operation.ADDITION, Feuille(3.0),Noeud(Operation.DIVISION, Feuille(1.0),Feuille(2.0)))}
         verify("parse 2 lvls ** works") {Logic.parseExpression("3 * 1 * 2") == Noeud(Operation.MULTIPLICATION, Feuille(3.0),Noeud(Operation.MULTIPLICATION, Feuille(1.0),Feuille(2.0)))}
+
 
 
 
